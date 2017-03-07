@@ -19,15 +19,12 @@
   text-align: center;
 }
 
+
 #header-nav {
   /*margin-top: 10px;*/
   background-color: #f6b222;
   border-radius: 0;
-  padding-left: 0px;.page-header {
-  border-bottom: 0px;
-  text-align: center;
-}
-
+  padding-left: 0px;
   /*border: 1px solid #61122f;*/
 }
 
