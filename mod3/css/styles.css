@@ -52,6 +52,12 @@
 
 }
 
+/*overwrite marings of the dropdown list*/
+.navbar-nav {
+  /*margin: 7.5px -15px;*/
+  margin: 0px -15px 0px -15px;
+}
+
 /* .visible-xs */
 @media (max-width: 767px) {
 }
