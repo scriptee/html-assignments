@@ -13,15 +13,20 @@ $(function () { // Same as document.addEventListener("DOMContentLoaded"...
 
 var dc = {};
 
-var homeHtmlUrl = "snippets/home-snippet.html";
+//var homeHtmlUrl = "snippets/home-snippet.html";
+var homeHtmlUrl = "home-snippet.html";
 var allCategoriesUrl =
   "https://davids-restaurant.herokuapp.com/categories.json";
-var categoriesTitleHtml = "snippets/categories-title-snippet.html";
-var categoryHtml = "snippets/category-snippet.html";
+//var categoriesTitleHtml = "snippets/categories-title-snippet.html";
+var categoriesTitleHtml = "categories-title-snippet.html";
+//var categoryHtml = "snippets/category-snippet.html";
+var categoryHtml = "category-snippet.html";
 var menuItemsUrl =
   "https://davids-restaurant.herokuapp.com/menu_items.json?category=";
-var menuItemsTitleHtml = "snippets/menu-items-title.html";
-var menuItemHtml = "snippets/menu-item.html";
+//var menuItemsTitleHtml = "snippets/menu-items-title.html";
+//var menuItemHtml = "snippets/menu-item.html";
+var menuItemsTitleHtml = "menu-items-title.html";
+var menuItemHtml = "menu-item.html";
 
 // Convenience function for inserting innerHTML for 'select'
 var insertHtml = function (selector, html) {
@@ -83,7 +88,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 showLoading("#main-content");
 $ajaxUtils.sendGetRequest(
   allCategoriesUrl,
-  [...], // ***** <---- TODO: STEP 1: Substitute [...] ******
+  buildAndShowHomeHTML,
+  //[...], // ***** <---- TODO: STEP 1: Substitute [...] ******
   true); // Explicitely setting the flag to get JSON from server processed into an object literal
 });
 // *** finish **
@@ -102,6 +108,14 @@ function buildAndShowHomeHTML (categories) {
       // Pay attention to what type of data that function returns vs what the chosenCategoryShortName
       // variable's name implies it expects.
       // var chosenCategoryShortName = ....
+      var chosenCategoryShortName=chooseRandomCategory(categories);
+      //convert javascript to json and print 
+      var json_obj = JSON.stringify(chosenCategoryShortName);
+      console.log("json_obj="+JSON.stringify(chosenCategoryShortName));
+      //optionally: json to javascript obj
+      //var j_obj = JSON.parse(json_obj);      
+      chosenCategoryShortName=chosenCategoryShortName.short_name;
+      console.log("shortName:"+chosenCategoryShortName);
 
 
       // TODO: STEP 3: Substitute {{randomCategoryShortName}} in the home html snippet with the
@@ -115,13 +129,16 @@ function buildAndShowHomeHTML (categories) {
       // Hint: you need to surround the chosen category short name with something before inserting
       // it into the home html snippet.
       //
-      // var homeHtmlToInsertIntoMainPage = ....
 
+      //not homeHtmlUrl!!
+      var homeHtmlToInsertIntoMainPage = insertProperty(homeHtml, "randomCategoryShortName", "'"+chosenCategoryShortName+"'");
+      //console.log("**\n"+homeHtmlToInsertIntoMainPage+"\n**");
 
       // TODO: STEP 4: Insert the the produced HTML in STEP 3 into the main page
       // Use the existing insertHtml function for that purpose. Look through this code for an example
       // of how to do that.
       // ....
+      insertHtml("#main-content", homeHtmlToInsertIntoMainPage);
 
     },
     false); // False here because we are getting just regular HTML from the server, so no need to process JSON.
